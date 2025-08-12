@@ -1,0 +1,98 @@
+import ListingCard from "./ListingCard";
+import cameraImage from "@/assets/camera-rental.jpg";
+import drillImage from "@/assets/drill-rental.jpg";
+import tentImage from "@/assets/tent-rental.jpg";
+
+const mockListings = [
+  {
+    id: "1",
+    title: "Professional DSLR Camera Kit",
+    image: cameraImage,
+    price: 45,
+    rating: 4.8,
+    reviewCount: 24,
+    location: "San Francisco, CA",
+    category: "Photography",
+    isAvailable: true
+  },
+  {
+    id: "2", 
+    title: "Professional Power Drill Set",
+    image: drillImage,
+    price: 25,
+    rating: 4.6,
+    reviewCount: 18,
+    location: "Austin, TX",
+    category: "Tools",
+    isAvailable: true
+  },
+  {
+    id: "3",
+    title: "4-Person Camping Tent",
+    image: tentImage,
+    price: 35,
+    rating: 4.9,
+    reviewCount: 31,
+    location: "Denver, CO", 
+    category: "Outdoor",
+    isAvailable: false
+  },
+  {
+    id: "4",
+    title: "Professional DSLR Camera Kit",
+    image: cameraImage,
+    price: 50,
+    rating: 4.7,
+    reviewCount: 15,
+    location: "Seattle, WA",
+    category: "Photography",
+    isAvailable: true
+  },
+  {
+    id: "5",
+    title: "Heavy Duty Power Tools",
+    image: drillImage,
+    price: 30,
+    rating: 4.5,
+    reviewCount: 22,
+    location: "Portland, OR",
+    category: "Tools",
+    isAvailable: true
+  },
+  {
+    id: "6",
+    title: "Family Camping Gear",
+    image: tentImage,
+    price: 40,
+    rating: 4.8,
+    reviewCount: 28,
+    location: "Boulder, CO",
+    category: "Outdoor",
+    isAvailable: true
+  }
+];
+
+const ListingsGrid = () => {
+  return (
+    <section className="py-16 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Popular Rentals
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Discover the most sought-after items in your area. From professional equipment to outdoor gear.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockListings.map((listing) => (
+            <ListingCard key={listing.id} {...listing} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ListingsGrid;
