@@ -25,40 +25,49 @@ const ListingCard = ({
   isAvailable 
 }: ListingCardProps) => {
   return (
-    <Card className="group cursor-pointer transition-all duration-200 hover:shadow-[var(--card-hover-shadow)] border-border/50">
+    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border/50 bg-[var(--gradient-card)] backdrop-blur-sm overflow-hidden">
       <CardContent className="p-0">
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <img 
             src={image} 
             alt={title}
-            className="w-full h-48 object-cover rounded-t-lg"
+            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute top-3 right-3">
-            <Badge variant={isAvailable ? "secondary" : "destructive"} className="text-xs">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute top-4 right-4">
+            <Badge 
+              variant={isAvailable ? "secondary" : "destructive"} 
+              className={`text-xs backdrop-blur-sm ${isAvailable ? 'bg-green-500/90 text-white' : 'bg-red-500/90 text-white'}`}
+            >
               {isAvailable ? "Available" : "Booked"}
+            </Badge>
+          </div>
+          <div className="absolute top-4 left-4">
+            <Badge variant="outline" className="text-xs backdrop-blur-sm bg-white/90 border-white/50">
+              {category}
             </Badge>
           </div>
         </div>
         
-        <div className="p-5 space-y-3">
-          <div className="space-y-1">
-            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+        <div className="p-6 space-y-4">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
               {title}
             </h3>
             <div className="flex items-center text-sm text-muted-foreground">
-              <MapPin className="w-3 h-3 mr-1" />
+              <MapPin className="w-4 h-4 mr-1" />
               {location}
             </div>
           </div>
           
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center space-x-1">
-              <Star className="w-3 h-3 fill-current text-yellow-500" />
-              <span className="text-sm">{rating}</span>
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <span className="text-sm font-medium">{rating}</span>
               <span className="text-xs text-muted-foreground">({reviewCount})</span>
             </div>
             <div className="text-right">
-              <div className="text-lg font-medium text-foreground">${price}</div>
+              <div className="text-xl font-bold text-foreground">${price}</div>
               <div className="text-xs text-muted-foreground">per day</div>
             </div>
           </div>

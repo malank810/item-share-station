@@ -74,14 +74,14 @@ const mockListings = [
 
 const ListingsGrid = () => {
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-light text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Popular near you
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Equipment people are renting in your area.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Premium equipment people are renting in your area. All verified and ready to go.
           </p>
         </div>
         

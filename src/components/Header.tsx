@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-[var(--backdrop-blur)] border-b border-border/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-medium text-foreground">
-              RentHub
+            <h1 className="text-xl font-bold text-foreground">
+              Rent<span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Hub</span>
             </h1>
           </div>
 
@@ -28,10 +29,11 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
+            <ThemeToggle />
             <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
               Sign in
             </Button>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-primary-foreground shadow-lg">
               Sign up
             </Button>
           </div>
@@ -60,12 +62,13 @@ const Header = () => {
             <a href="#" className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm">
               List item
             </a>
-            <div className="border-t border-border pt-4 mt-4 space-y-2">
+            <div className="border-t border-border pt-4 mt-4 space-y-2 flex flex-col">
+              <ThemeToggle />
               <Button variant="ghost" className="w-full justify-start text-sm">
                 <User className="mr-2 h-4 w-4" />
                 Sign in
               </Button>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-sm">
+              <Button className="w-full bg-gradient-to-r from-primary to-primary/90 text-primary-foreground text-sm">
                 Sign up
               </Button>
             </div>
