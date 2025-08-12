@@ -4,44 +4,31 @@ import { Input } from "@/components/ui/input";
 
 const SearchBar = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-[var(--search-shadow)] p-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">What do you need?</label>
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="bg-white rounded-xl shadow-[var(--search-shadow)] border border-border p-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input 
-              placeholder="Camera, tools, equipment..."
-              className="pl-10 h-12 border-border focus:ring-primary"
+              placeholder="What do you need?"
+              className="pl-12 h-12 border-0 bg-transparent focus-visible:ring-0 text-base"
             />
           </div>
-        </div>
-        
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Location</label>
-          <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          
+          <div className="relative md:border-l border-border">
+            <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input 
-              placeholder="City or ZIP code"
-              className="pl-10 h-12 border-border focus:ring-primary"
+              placeholder="Location"
+              className="pl-12 h-12 border-0 bg-transparent focus-visible:ring-0 text-base"
             />
           </div>
-        </div>
-        
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Rental dates</label>
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input 
-              placeholder="Select dates"
-              className="pl-10 h-12 border-border focus:ring-primary"
-            />
+          
+          <div className="flex">
+            <Button size="lg" className="h-12 w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+              Search
+            </Button>
           </div>
         </div>
-        
-        <Button size="lg" className="h-12 bg-primary hover:bg-primary/90 text-primary-foreground">
-          Search
-        </Button>
       </div>
     </div>
   );

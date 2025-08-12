@@ -6,35 +6,32 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-white">
-              Rent<span className="text-secondary">Hub</span>
+            <h1 className="text-xl font-medium text-foreground">
+              RentHub
             </h1>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-white/90 hover:text-white transition-colors">
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
               Browse
             </a>
-            <a href="#" className="text-white/90 hover:text-white transition-colors">
-              How it works
-            </a>
-            <a href="#" className="text-white/90 hover:text-white transition-colors">
-              List your item
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+              List item
             </a>
           </nav>
 
           {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-white hover:text-white hover:bg-white/10">
+          <div className="hidden md:flex items-center space-x-3">
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
               Sign in
             </Button>
-            <Button className="bg-secondary hover:bg-secondary/90 text-white">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Sign up
             </Button>
           </div>
@@ -45,9 +42,9 @@ const Header = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-white hover:bg-white/10"
+              className="text-foreground hover:text-foreground hover:bg-accent"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
@@ -55,23 +52,20 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 text-foreground hover:text-primary">
+        <div className="md:hidden bg-background border-t border-border">
+          <div className="px-4 pt-2 pb-3 space-y-1">
+            <a href="#" className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm">
               Browse
             </a>
-            <a href="#" className="block px-3 py-2 text-foreground hover:text-primary">
-              How it works
+            <a href="#" className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm">
+              List item
             </a>
-            <a href="#" className="block px-3 py-2 text-foreground hover:text-primary">
-              List your item
-            </a>
-            <div className="border-t pt-4 space-y-2">
-              <Button variant="ghost" className="w-full justify-start">
+            <div className="border-t border-border pt-4 mt-4 space-y-2">
+              <Button variant="ghost" className="w-full justify-start text-sm">
                 <User className="mr-2 h-4 w-4" />
                 Sign in
               </Button>
-              <Button className="w-full bg-primary hover:bg-primary/90">
+              <Button className="w-full bg-primary hover:bg-primary/90 text-sm">
                 Sign up
               </Button>
             </div>
