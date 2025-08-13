@@ -1,10 +1,19 @@
 import { useState } from "react";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-[var(--backdrop-blur)] border-b border-border/50">
@@ -30,12 +39,27 @@ const Header = () => {
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
             <ThemeToggle />
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Sign in
-            </Button>
-            <Button className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-primary-foreground shadow-lg">
-              Sign up
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <Button variant="ghost" size="sm" className="font-medium">
+                  <User className="h-4 w-4 mr-2" />
+                  {user.user_metadata?.first_name || user.email}
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleSignOut} className="font-medium">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Button variant="ghost" onClick={() => navigate('/auth')} className="text-muted-foreground hover:text-foreground">
+                  Sign in
+                </Button>
+                <Button onClick={() => navigate('/auth')} className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 text-primary-foreground shadow-lg">
+                  Sign up
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -64,13 +88,28 @@ const Header = () => {
             </a>
             <div className="border-t border-border pt-4 mt-4 space-y-2 flex flex-col">
               <ThemeToggle />
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <User className="mr-2 h-4 w-4" />
-                Sign in
-              </Button>
-              <Button className="w-full bg-gradient-to-r from-primary to-primary/90 text-primary-foreground text-sm">
-                Sign up
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" className="w-full justify-start text-sm">
+                    <User className="mr-2 h-4 w-4" />
+                    {user.user_metadata?.first_name || user.email}
+                  </Button>
+                  <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-sm">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" onClick={() => navigate('/auth')} className="w-full justify-start text-sm">
+                    <User className="mr-2 h-4 w-4" />
+                    Sign in
+                  </Button>
+                  <Button onClick={() => navigate('/auth')} className="w-full bg-gradient-to-r from-primary to-primary/90 text-primary-foreground text-sm">
+                    Sign up
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
