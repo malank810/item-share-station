@@ -25,7 +25,7 @@ const ListingCard = ({
   isAvailable 
 }: ListingCardProps) => {
   return (
-    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border/50 bg-[var(--gradient-card)] backdrop-blur-sm overflow-hidden">
+    <Card className="group cursor-pointer transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border/50 bg-[var(--gradient-card)] backdrop-blur-sm overflow-hidden hover:scale-[1.02]">
       <CardContent className="p-0">
         <div className="relative overflow-hidden">
           <img 
@@ -37,13 +37,13 @@ const ListingCard = ({
           <div className="absolute top-4 right-4">
             <Badge 
               variant={isAvailable ? "secondary" : "destructive"} 
-              className={`text-xs backdrop-blur-sm ${isAvailable ? 'bg-green-500/90 text-white' : 'bg-red-500/90 text-white'}`}
+              className={`text-xs backdrop-blur-sm ${isAvailable ? 'bg-accent/90 text-foreground border-accent' : 'bg-destructive/90 text-destructive-foreground'} shadow-[var(--shadow-accent)]`}
             >
               {isAvailable ? "Available" : "Booked"}
             </Badge>
           </div>
           <div className="absolute top-4 left-4">
-            <Badge variant="outline" className="text-xs backdrop-blur-sm bg-white/90 border-white/50">
+            <Badge variant="outline" className="text-xs backdrop-blur-sm bg-background/90 border-border/50 text-foreground shadow-lg">
               {category}
             </Badge>
           </div>
@@ -51,7 +51,7 @@ const ListingCard = ({
         
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
+            <h3 className="font-semibold text-lg text-foreground group-hover:bg-[var(--gradient-primary)] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
               {title}
             </h3>
             <div className="flex items-center text-sm text-muted-foreground">
@@ -67,7 +67,7 @@ const ListingCard = ({
               <span className="text-xs text-muted-foreground">({reviewCount})</span>
             </div>
             <div className="text-right">
-              <div className="text-xl font-bold text-foreground">${price}</div>
+              <div className="text-xl font-bold bg-[var(--gradient-primary)] bg-clip-text text-transparent">${price}</div>
               <div className="text-xs text-muted-foreground">per day</div>
             </div>
           </div>
