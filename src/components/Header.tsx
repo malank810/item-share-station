@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
@@ -14,6 +14,15 @@ const Header = () => {
     await signOut();
     navigate('/');
   };
+
+  const navigation = user ? [
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Browse', href: '/listings' },
+    { name: 'List Item', href: '/create-listing', icon: Plus }
+  ] : [
+    { name: 'Browse', href: '/listings' },
+    { name: 'How it Works', href: '#features' }
+  ];
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-[var(--backdrop-blur)] border-b border-border/50">
@@ -28,12 +37,16 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Browse
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              List item
-            </a>
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-muted-foreground hover:text-foreground transition-colors text-sm flex items-center gap-2"
+              >
+                {item.icon && <item.icon className="h-4 w-4" />}
+                {item.name}
+              </Link>
+            ))}
           </nav>
 
           {/* Desktop Auth Buttons */}
@@ -41,7 +54,12 @@ const Header = () => {
             <ThemeToggle />
             {user ? (
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm" className="font-medium">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => navigate('/profile')}
+                  className="font-medium"
+                >
                   <User className="h-4 w-4 mr-2" />
                   {user.user_metadata?.first_name || user.email}
                 </Button>
@@ -80,21 +98,37 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-background border-t border-border">
           <div className="px-4 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm">
-              Browse
-            </a>
-            <a href="#" className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm">
-              List item
-            </a>
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="block px-3 py-2 text-muted-foreground hover:text-foreground text-sm flex items-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.icon && <item.icon className="h-4 w-4" />}
+                {item.name}
+              </Link>
+            ))}
             <div className="border-t border-border pt-4 mt-4 space-y-2 flex flex-col">
               <ThemeToggle />
               {user ? (
                 <>
-                  <Button variant="ghost" className="w-full justify-start text-sm">
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => {
+                      navigate('/profile');
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full justify-start text-sm"
+                  >
                     <User className="mr-2 h-4 w-4" />
-                    {user.user_metadata?.first_name || user.email}
+                    Profile
                   </Button>
-                  <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-sm">
+                  <Button 
+                    variant="ghost" 
+                    onClick={handleSignOut} 
+                    className="w-full justify-start text-sm"
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign out
                   </Button>
