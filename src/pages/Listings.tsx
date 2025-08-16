@@ -8,7 +8,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MapPin, Star, Search, Filter } from 'lucide-react';
+import { MapPin, Star, Search, Filter, Heart, MessageCircle } from 'lucide-react';
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 
 interface Listing {
   id: string;
@@ -24,6 +25,7 @@ interface Listing {
 
 const Listings = () => {
   const navigate = useNavigate();
+  const { requireAuth } = useAuthGuard();
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -181,6 +183,21 @@ const Listings = () => {
                           ${listing.price}/day
                         </Badge>
                       </div>
+                      <div className="absolute top-3 left-3">
+                        <Button
+                          size="sm" 
+                          variant="secondary"
+                          className="h-8 w-8 p-0 bg-background/90 hover:bg-background backdrop-blur-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (requireAuth('save items to favorites')) {
+                              // TODO: Implement save/favorite functionality
+                            }
+                          }}
+                        >
+                          <Heart className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                     
                     <CardContent className="p-4">
@@ -215,12 +232,27 @@ const Listings = () => {
                         )}
                       </div>
 
-                      <Button 
-                        className="w-full mt-4 bg-[var(--gradient-primary)] hover:shadow-[var(--shadow-hover)]"
-                        onClick={() => navigate(`/listing/${listing.id}`)}
-                      >
-                        View Details
-                      </Button>
+                      <div className="flex gap-2 mt-4">
+                        <Button 
+                          className="flex-1 bg-[var(--gradient-primary)] hover:shadow-[var(--shadow-hover)]"
+                          onClick={() => navigate(`/listing/${listing.id}`)}
+                        >
+                          View Details
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="px-3"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (requireAuth('contact the owner')) {
+                              // TODO: Open messaging modal
+                            }
+                          }}
+                        >
+                          <MessageCircle className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 );

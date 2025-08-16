@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Shield, Clock, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ThemeToggle';
-import heroImage from '@/assets/hero-rental.jpg';
+import AnimatedListingsPreview from '@/components/AnimatedListingsPreview';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -11,8 +11,8 @@ const LandingPage = () => {
   const features = [
     {
       icon: Shield,
-      title: 'Verified & Secure',
-      description: 'All items and users are verified for your safety and peace of mind.'
+      title: 'Verified Listings',
+      description: 'Browse carefully vetted listings from your local community.'
     },
     {
       icon: Clock,
@@ -21,12 +21,12 @@ const LandingPage = () => {
     },
     {
       icon: Star,
-      title: 'Quality Guaranteed',
-      description: 'Premium equipment maintained by trusted community members.'
+      title: 'Community Ratings',
+      description: 'Make informed decisions with reviews from real renters.'
     },
     {
       icon: Users,
-      title: 'Local Community',
+      title: 'Local Network',
       description: 'Connect with neighbors and build lasting rental relationships.'
     }
   ];
@@ -83,7 +83,7 @@ const LandingPage = () => {
                 Anytime
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
-                Access premium equipment from your local community. From cameras to power tools, 
+                Access equipment from your local community. From cameras to power tools, 
                 find what you need without the commitment of buying.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -98,30 +98,24 @@ const LandingPage = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  onClick={() => navigate('/auth')}
+                  onClick={() => navigate('/listings')}
                   className="text-lg px-8 py-6 font-medium border-2 hover:bg-accent/10"
                 >
-                  List Your Items
+                  Browse Listings
                 </Button>
               </div>
             </div>
             
             <div className="relative">
-              <div className="aspect-square rounded-3xl overflow-hidden shadow-[var(--shadow-modern)] border border-border/20">
-                <img 
-                  src={heroImage} 
-                  alt="Rental equipment showcase"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <AnimatedListingsPreview />
               <div className="absolute -bottom-6 -left-6 bg-card border border-border/50 rounded-2xl p-4 shadow-[var(--shadow-modern)]">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Shield className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">Verified Items</p>
-                    <p className="text-xs text-muted-foreground">100% Guaranteed</p>
+                    <p className="font-semibold text-sm">Community Verified</p>
+                    <p className="text-xs text-muted-foreground">Real Reviews</p>
                   </div>
                 </div>
               </div>
