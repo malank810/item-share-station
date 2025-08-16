@@ -4,6 +4,7 @@ import { ArrowRight, Shield, Clock, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ThemeToggle';
 import AnimatedListingsPreview from '@/components/AnimatedListingsPreview';
+import PopularListings from '@/components/PopularListings';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -46,11 +47,18 @@ const LandingPage = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                RentHub
+                Rently
               </h1>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/how-it-works')}
+                className="font-medium"
+              >
+                How It Works
+              </Button>
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/auth')}
@@ -142,15 +150,18 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Popular Listings Section */}
+      <PopularListings />
+
       {/* Features Section */}
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Why Choose RentHub?
+              Why Choose Rently?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join thousands of people who trust RentHub for their rental needs. 
+              Join thousands of people who trust Rently for their rental needs. 
               Experience the future of sharing economy.
             </p>
           </div>
@@ -198,14 +209,14 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto text-center">
           <div className="mb-8">
             <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
-              RentHub
+              Rently
             </h3>
             <p className="text-muted-foreground max-w-md mx-auto">
               Connecting communities through shared resources and trusted rental experiences.
             </p>
           </div>
           <div className="text-sm text-muted-foreground">
-            © 2024 RentHub. All rights reserved.
+            © 2024 Rently. All rights reserved.
           </div>
         </div>
       </footer>

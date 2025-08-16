@@ -21,7 +21,8 @@ const Header = () => {
     { name: 'List Item', href: '/create-listing', icon: Plus }
   ] : [
     { name: 'Browse', href: '/listings' },
-    { name: 'How it Works', href: '#features' }
+    { name: 'How it Works', href: '/how-it-works' },
+    { name: 'About', href: '/about' }
   ];
 
   return (
@@ -31,7 +32,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-xl font-bold text-foreground">
-              Rent<span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Hub</span>
+              Rent<span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">ly</span>
             </h1>
           </div>
 
