@@ -107,7 +107,7 @@ const PopularListings = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           {listings.map((listing) => (
             <Card key={listing.id} className="group cursor-pointer transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border/50 bg-[var(--gradient-card)] backdrop-blur-sm overflow-hidden hover:scale-[1.02]">
               <div className="aspect-[4/3] bg-muted relative overflow-hidden">
@@ -150,7 +150,7 @@ const PopularListings = () => {
                     {listing.reviewCount > 0 && (
                       <div className="flex items-center text-muted-foreground">
                         <Star className="h-3 w-3 mr-1 fill-current text-yellow-500" />
-                        <span>{listing.averageRating} ({listing.reviewCount})</span>
+                        <span>{listing.averageRating}</span>
                       </div>
                     )}
                   </div>

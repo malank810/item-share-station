@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Bell, X, Check, Info, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
 
 interface Notification {
   id: string;
@@ -16,100 +15,38 @@ interface Notification {
 }
 
 const NotificationSystem = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
   const { user } = useAuth();
-
-  useEffect(() => {
-    if (user) {
-      fetchNotifications();
-      // Set up real-time subscription for new notifications
-      const subscription = supabase
-        .channel('notifications')
-        .on('postgres_changes', 
-          { 
-            event: 'INSERT', 
-            schema: 'public', 
-            table: 'notifications',
-            filter: `user_id=eq.${user.id}`
-          }, 
-          (payload) => {
-            const newNotification = payload.new as Notification;
-            setNotifications(prev => [newNotification, ...prev]);
-            setUnreadCount(prev => prev + 1);
-            // Show browser notification if permission granted
-            if (Notification.permission === 'granted') {
-              new Notification(newNotification.title, {
-                body: newNotification.message,
-                icon: '/favicon.ico'
-              });
-            }
-          }
-        )
-        .subscribe();
-
-      return () => {
-        subscription.unsubscribe();
-      };
+  
+  // Mock notifications for demo
+  const [notifications] = useState<Notification[]>([
+    {
+      id: '1',
+      title: 'Booking Confirmed',
+      message: 'Your booking for Canon EOS R5 Camera has been confirmed!',
+      type: 'success',
+      read: false,
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '2', 
+      title: 'New Message',
+      message: 'You have a new message about your tent listing.',
+      type: 'info',
+      read: false,
+      created_at: new Date(Date.now() - 3600000).toISOString()
+    },
+    {
+      id: '3',
+      title: 'Payment Received',
+      message: 'You received $45 for your camera rental.',
+      type: 'success', 
+      read: true,
+      created_at: new Date(Date.now() - 7200000).toISOString()
     }
-  }, [user]);
+  ]);
 
-  const fetchNotifications = async () => {
-    if (!user) return;
-
-    try {
-      const { data, error } = await supabase
-        .from('notifications')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-        .limit(20);
-
-      if (error) {
-        console.error('Error fetching notifications:', error);
-        return;
-      }
-
-      setNotifications(data || []);
-      setUnreadCount(data?.filter(n => !n.read).length || 0);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const markAsRead = async (notificationId: string) => {
-    try {
-      await supabase
-        .from('notifications')
-        .update({ read: true })
-        .eq('id', notificationId);
-
-      setNotifications(prev => 
-        prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
-      );
-      setUnreadCount(prev => Math.max(0, prev - 1));
-    } catch (error) {
-      console.error('Error marking notification as read:', error);
-    }
-  };
-
-  const markAllAsRead = async () => {
-    if (!user) return;
-
-    try {
-      await supabase
-        .from('notifications')
-        .update({ read: true })
-        .eq('user_id', user.id)
-        .eq('read', false);
-
-      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-      setUnreadCount(0);
-    } catch (error) {
-      console.error('Error marking all notifications as read:', error);
-    }
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const unreadCount = notifications.filter(n => !n.read).length;
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
@@ -119,16 +56,6 @@ const NotificationSystem = () => {
       default: return <Info className="h-4 w-4 text-blue-500" />;
     }
   };
-
-  const requestNotificationPermission = () => {
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-  };
-
-  useEffect(() => {
-    requestNotificationPermission();
-  }, []);
 
   if (!user) return null;
 
@@ -157,25 +84,13 @@ const NotificationSystem = () => {
             <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">Notifications</h3>
-                <div className="flex items-center gap-2">
-                  {unreadCount > 0 && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={markAllAsRead}
-                      className="text-xs"
-                    >
-                      Mark all read
-                    </Button>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
             </div>
             
@@ -191,7 +106,6 @@ const NotificationSystem = () => {
                     className={`p-4 border-b border-border/50 hover:bg-accent/20 cursor-pointer transition-colors ${
                       !notification.read ? 'bg-primary/5' : ''
                     }`}
-                    onClick={() => !notification.read && markAsRead(notification.id)}
                   >
                     <div className="flex items-start gap-3">
                       {getNotificationIcon(notification.type)}
