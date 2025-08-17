@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import NotificationSystem from "./NotificationSystem";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,6 +54,7 @@ const Header = () => {
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
             <ThemeToggle />
+            <NotificationSystem />
             {user ? (
               <div className="flex items-center space-x-2">
                 <Button 

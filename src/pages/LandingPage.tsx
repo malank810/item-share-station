@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/ThemeToggle';
 import AnimatedListingsPreview from '@/components/AnimatedListingsPreview';
 import PopularListings from '@/components/PopularListings';
+import CategoriesSection from '@/components/CategoriesSection';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -33,10 +34,10 @@ const LandingPage = () => {
   ];
 
   const stats = [
-    { number: '10K+', label: 'Happy Renters' },
+    { number: '10K+', label: 'Active Users' },
     { number: '5K+', label: 'Items Listed' },
     { number: '50+', label: 'Cities' },
-    { number: '4.9★', label: 'Average Rating' }
+    { number: '25K+', label: 'Successful Rentals' }
   ];
 
   return (
@@ -88,11 +89,11 @@ const LandingPage = () => {
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent leading-tight">
                 Rent Anything,
                 <br />
-                Anytime
+                From Anyone
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
-                Access equipment from your local community. From cameras to power tools, 
-                find what you need without the commitment of buying.
+                Connect with your local community to rent items from trusted neighbors. 
+                From cameras to tools, discover what's available near you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
@@ -150,6 +151,9 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Categories Section */}
+      <CategoriesSection />
+
       {/* Popular Listings Section */}
       <PopularListings />
 
@@ -157,11 +161,11 @@ const LandingPage = () => {
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Why Choose Rently?
+            <h2 className="text-4xl font-bold text-foreground mb-6">
+              Why Choose Our Marketplace?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join thousands of people who trust Rently for their rental needs. 
+              Join thousands of people using our platform to find what they need. 
               Experience the future of sharing economy.
             </p>
           </div>
@@ -188,10 +192,10 @@ const LandingPage = () => {
       <section className="py-24 px-4 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Ready to Start Renting?
+            Ready to Get Started?
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join our community today and discover the convenience of renting from trusted neighbors.
+            Join our marketplace today and discover the convenience of renting from people nearby.
           </p>
           <Button 
             size="lg"
@@ -212,7 +216,7 @@ const LandingPage = () => {
               Rently
             </h3>
             <p className="text-muted-foreground max-w-md mx-auto">
-              Connecting communities through shared resources and trusted rental experiences.
+              Connecting people through shared resources and trusted rental experiences.
             </p>
           </div>
           <div className="text-sm text-muted-foreground">
